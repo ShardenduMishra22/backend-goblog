@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"os"
 
 	"github.com/MishraShardendu22/database"
@@ -21,9 +20,10 @@ func main() {
 	fmt.Println("This is a Blog application")
 
 	app := fiber.New()
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
+	if os.Getenv("ENV") != "production" {
+		if err := godotenv.Load(".env"); err != nil {
+			fmt.Println("Error loading .env file")
+		}
 	}
 
 	// Start Server
